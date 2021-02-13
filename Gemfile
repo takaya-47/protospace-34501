@@ -56,3 +56,5 @@ gem 'devise'
 # 画像投稿ができるようにするためのgemを追加
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
+
+gem 'pry-rails'

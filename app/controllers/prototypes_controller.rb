@@ -13,13 +13,14 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    prototype = Prototype.new(prototype_params)
-    if prototype.save
-      # 正しく保存されればルートパスに遷移
+    # createアクションのビューは作らないがrender後もform_withに@prototypeを渡す必要があるので@付きで変数を定義
+    @prototype = Prototype.new(prototype_params)
+    if @prototype.save
+      # 正しく保存されればトップページへリダイレクト
       redirect_to root_path
     else
-      # 保存に失敗すればindexアクションを実行
-      render :index
+      # 保存に失敗すればnewアクションを実行
+      render :new
     end
   end
 
@@ -35,10 +36,11 @@ class PrototypesController < ApplicationController
   end
 
   def update
-    prototype = Prototype.find(params[:id])
-    if prototype.update(prototype_params)
+    # updateアクションのビューは作らないがrender後もform_withに@prototypeを渡す必要があるので@付きで変数を定義
+    @prototype = Prototype.find(params[:id])
+    if @prototype.update(prototype_params)
       # 正しく保存されればプロトタイプの詳細画面にリダイレクト
-      redirect_to prototype_path(prototype)
+      redirect_to prototype_path(@prototype)
     else
       # 更新に失敗すればeditアクションを実行
       render :edit
